@@ -72,6 +72,19 @@ it('on Draw button click it should choose 3 random winners', () => {
   expect(winners).not.toEqual(contestants.slice(0, 3));
 });
 
+it('should display 3 winners on Draw button click', () => {
+  const wrapper = shallow(<App />);
+  const contestants = ['Bob', 'Bill', 'Ben', 'Jackie', 'Jill', 'Guy', 'Frank', 'Dude'];
+  wrapper.setState({
+    contestants,
+  });
+
+  const drawBtn = wrapper.find('#drawBtn');
+  drawBtn.simulate('click');
+
+  expect(wrapper.find('.winner')).toHaveLength(3);
+});
+
 /* Test for Fisher-Yates shuffle algo */
 it('should shuffle a list', () => {
   const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9];

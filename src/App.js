@@ -39,6 +39,12 @@ class App extends Component {
       </li>,
     );
 
+    const winners = this.state.winners.map(winner =>
+      <li key={winner} className="winner">
+        {winner}
+      </li>,
+    );
+
     return (
       <div className="App">
         <input onChange={event => this.updateContestant(event)} />
@@ -51,6 +57,10 @@ class App extends Component {
         <button id="drawBtn" onClick={() => this.drawWinners(this.state.contestants)}>
           Draw Winners
         </button>
+
+        <ul>
+          {winners}
+        </ul>
       </div>
     );
   }
