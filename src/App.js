@@ -7,6 +7,7 @@ class App extends Component {
     super(props);
     this.state = {
       contestant: '',
+      contestants: [],
     };
   }
 
@@ -17,10 +18,19 @@ class App extends Component {
     });
   };
 
+  addContestant = contestant => {
+    const contestants = this.state.contestants.slice();
+    contestants.push(contestant);
+    this.setState({ contestants });
+  };
+
   render() {
     return (
       <div className="App">
         <input onChange={event => this.updateContestant(event)} />
+        <button id="addBtn" onClick={() => this.addContestant(this.state.contestant)}>
+          Add Contestant
+        </button>
       </div>
     );
   }

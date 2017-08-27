@@ -16,3 +16,13 @@ it('should update contestant state when text is inputted', () => {
 
   expect(wrapper).toHaveState('contestant', 'Bob');
 });
+
+it('should add the the contestants state when "Add" button is pressed', () => {
+  const wrapper = shallow(<App />);
+  wrapper.setState({ contestant: 'Bob' });
+
+  const addButton = wrapper.find('#addBtn');
+  addButton.simulate('click');
+
+  expect(wrapper).toHaveState('contestants', ['Bob']);
+});
