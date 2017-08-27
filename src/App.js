@@ -14,7 +14,7 @@ class App extends Component {
 
   updateContestant = event => {
     this.setState({
-      contestant: event,
+      contestant: event.target.value,
     });
   };
 

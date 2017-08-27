@@ -12,7 +12,7 @@ it('renders without crashing', () => {
 it('should update contestant state when text is inputted', () => {
   const wrapper = shallow(<App />);
   const input = wrapper.find('input');
-  input.simulate('change', 'Bob');
+  input.simulate('change', { target: { value: 'Bob' } });
 
   expect(wrapper).toHaveState('contestant', 'Bob');
 });
