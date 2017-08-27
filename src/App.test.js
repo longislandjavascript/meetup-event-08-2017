@@ -38,10 +38,21 @@ it("shouldn't add a contestant if the input is blank", () => {
 
 it("shouldn't be able to add the same contestant twice", () => {
   const wrapper = shallow(<App />);
-  wrapper.setState({ contestants: ['Bob'], contestant: 'Bob' });
-
   const addButton = wrapper.find('#addBtn');
-  addButton.simulate('click');
 
+  wrapper.setState({ contestants: ['Bob'], contestant: 'Bob' });
+  addButton.simulate('click');
   expect(wrapper).toHaveState('contestants', ['Bob']);
+
+  wrapper.setState({ contestants: ['Bob'], contestant: 'bob' });
+  addButton.simulate('click');
+  expect(wrapper).toHaveState('contestants', ['Bob']);
+});
+
+it('should render all of the added contestant', () => {
+  const wrapper = shallow(<App />);
+  wrapper.setState({ contestants: ['Bob', 'Bill', 'Ben'] });
+  wrapper.update();
+
+  expect(wrapper.find('li')).toHaveLength(3);
 });

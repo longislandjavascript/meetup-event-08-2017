@@ -12,14 +12,14 @@ class App extends Component {
   }
 
   updateContestant = event => {
-    console.log(event);
     this.setState({
       contestant: event,
     });
   };
 
   addContestant = contestant => {
-    if (contestant && !this.state.contestants.includes(contestant)) {
+    const lowCaseContestants = this.state.contestants.map(contestant => contestant.toLowerCase());
+    if (contestant && !lowCaseContestants.includes(contestant.toLowerCase())) {
       const contestants = this.state.contestants.slice();
       contestants.push(contestant);
       this.setState({ contestants });
@@ -27,12 +27,21 @@ class App extends Component {
   };
 
   render() {
+    const contestants = this.state.contestants.map(contestant =>
+      <li key={contestant}>
+        {contestant}
+      </li>,
+    );
+
     return (
       <div className="App">
         <input onChange={event => this.updateContestant(event)} />
         <button id="addBtn" onClick={() => this.addContestant(this.state.contestant)}>
           Add Contestant
         </button>
+        <ul>
+          {contestants}
+        </ul>
       </div>
     );
   }
