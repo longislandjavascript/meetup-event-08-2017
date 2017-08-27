@@ -8,6 +8,7 @@ class App extends Component {
     this.state = {
       contestant: '',
       contestants: [],
+      winners: [],
     };
   }
 
@@ -26,6 +27,11 @@ class App extends Component {
     }
   };
 
+  drawWinners = contestants => {
+    const winners = shuffle(contestants).slice(0, 3);
+    this.setState({ winners });
+  };
+
   render() {
     const contestants = this.state.contestants.map(contestant =>
       <li key={contestant}>
@@ -42,9 +48,31 @@ class App extends Component {
         <ul>
           {contestants}
         </ul>
+        <button id="drawBtn" onClick={() => this.drawWinners(this.state.contestants)}>
+          Draw Winners
+        </button>
       </div>
     );
   }
 }
 
 export default App;
+
+/* Courtesy of the fisher-yates shuffle algorithm
+ * https://www.frankmitchell.org/2015/01/fisher-yates/
+ */
+export function shuffle(arr) {
+  const array = arr.slice();
+  var i = 0,
+    j = 0,
+    temp = null;
+
+  for (i = array.length - 1; i > 0; i -= 1) {
+    j = Math.floor(Math.random() * (i + 1));
+    temp = array[i];
+    array[i] = array[j];
+    array[j] = temp;
+  }
+
+  return array;
+}
