@@ -19,9 +19,11 @@ class App extends Component {
   };
 
   addContestant = contestant => {
-    const contestants = this.state.contestants.slice();
-    contestants.push(contestant);
-    this.setState({ contestants });
+    if (contestant && !this.state.contestants.includes(contestant)) {
+      const contestants = this.state.contestants.slice();
+      contestants.push(contestant);
+      this.setState({ contestants });
+    }
   };
 
   render() {

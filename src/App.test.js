@@ -26,3 +26,22 @@ it('should add the the contestants state when "Add" button is pressed', () => {
 
   expect(wrapper).toHaveState('contestants', ['Bob']);
 });
+
+it("shouldn't add a contestant if the input is blank", () => {
+  const wrapper = shallow(<App />);
+
+  const addButton = wrapper.find('#addBtn');
+  addButton.simulate('click');
+
+  expect(wrapper).toHaveState('contestants', []);
+});
+
+it("shouldn't be able to add the same contestant twice", () => {
+  const wrapper = shallow(<App />);
+  wrapper.setState({ contestants: ['Bob'], contestant: 'Bob' });
+
+  const addButton = wrapper.find('#addBtn');
+  addButton.simulate('click');
+
+  expect(wrapper).toHaveState('contestants', ['Bob']);
+});
