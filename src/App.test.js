@@ -29,8 +29,8 @@ it('should add the the contestants state when "Add" button is pressed', () => {
 
 it("shouldn't add a contestant if the input is blank", () => {
   const wrapper = shallow(<App />);
-
   const addButton = wrapper.find('#addBtn');
+
   addButton.simulate('click');
 
   expect(wrapper).toHaveState('contestants', []);
@@ -42,10 +42,12 @@ it("shouldn't be able to add the same contestant twice", () => {
 
   wrapper.setState({ contestants: ['Bob'], contestant: 'Bob' });
   addButton.simulate('click');
+  
   expect(wrapper).toHaveState('contestants', ['Bob']);
 
   wrapper.setState({ contestants: ['Bob'], contestant: 'bob' });
   addButton.simulate('click');
+  
   expect(wrapper).toHaveState('contestants', ['Bob']);
 });
 
@@ -56,30 +58,32 @@ it('should render all of the added contestants', () => {
   expect(wrapper.find('li')).toHaveLength(3);
 });
 
-it('on Draw button click it should choose 3 random winners', () => {
+it('should choose 3 random winners on Draw button click', () => {
   const wrapper = shallow(<App />);
+  const drawBtn = wrapper.find('#drawBtn');
   const contestants = ['Bob', 'Bill', 'Ben', 'Jackie', 'Jill', 'Guy', 'Frank', 'Dude'];
+  
   wrapper.setState({
     contestants,
   });
 
-  const drawBtn = wrapper.find('#drawBtn');
   drawBtn.simulate('click');
 
   const winners = wrapper.state().winners;
-
+  
   expect(winners.length).toEqual(3);
   expect(winners).not.toEqual(contestants.slice(0, 3));
 });
 
 it('should display 3 winners on Draw button click', () => {
   const wrapper = shallow(<App />);
+  const drawBtn = wrapper.find('#drawBtn');
   const contestants = ['Bob', 'Bill', 'Ben', 'Jackie', 'Jill', 'Guy', 'Frank', 'Dude'];
+  
   wrapper.setState({
     contestants,
   });
 
-  const drawBtn = wrapper.find('#drawBtn');
   drawBtn.simulate('click');
 
   expect(wrapper.find('.winner')).toHaveLength(3);
