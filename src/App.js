@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
@@ -23,7 +22,7 @@ class App extends Component {
     
     if (contestant && !lowCaseContestants.includes(contestant.toLowerCase())) {
       const contestants = this.state.contestants.concat(contestant);
-      this.setState({ contestants });
+      this.setState({ contestants, contestant: '' });
     }
   };
 
@@ -47,10 +46,17 @@ class App extends Component {
 
     return (
       <div className="App">
-        <input onChange={event => this.updateContestant(event)} />
-        <button id="addBtn" onClick={() => this.addContestant(this.state.contestant)}>
-          Add Contestant
-        </button>
+        <h3>Welcome to the Long Island JavaScript Raffle!</h3>
+        <form onSubmit={(event) => {
+           event.preventDefault();
+           this.addContestant(this.state.contestant);}}>
+          <input value={this.state.contestant} onChange={event => this.updateContestant(event)} />
+
+          <button type="button" id="addBtn" onClick={() => this.addContestant(this.state.contestant)}>
+            Add Contestant
+          </button>
+        </form>
+
         <ul>
           {contestants}
         </ul>
