@@ -19,7 +19,7 @@ class App extends Component {
 
   addContestant = contestant => {
     const lowCaseContestants = this.state.contestants.map(contestant => contestant.toLowerCase());
-    
+
     if (contestant && !lowCaseContestants.includes(contestant.toLowerCase())) {
       const contestants = this.state.contestants.concat(contestant);
       this.setState({ contestants, contestant: '' });
@@ -47,12 +47,19 @@ class App extends Component {
     return (
       <div className="App">
         <h3>Welcome to the Long Island JavaScript Raffle!</h3>
-        <form onSubmit={(event) => {
-           event.preventDefault();
-           this.addContestant(this.state.contestant);}}>
+        <form
+          onSubmit={event => {
+            event.preventDefault();
+            this.addContestant(this.state.contestant);
+          }}
+        >
           <input value={this.state.contestant} onChange={event => this.updateContestant(event)} />
 
-          <button type="button" id="addBtn" onClick={() => this.addContestant(this.state.contestant)}>
+          <button
+            type="button"
+            id="addBtn"
+            onClick={() => this.addContestant(this.state.contestant)}
+          >
             Add Contestant
           </button>
         </form>
