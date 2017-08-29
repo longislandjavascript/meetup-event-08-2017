@@ -20,9 +20,9 @@ class App extends Component {
 
   addContestant = contestant => {
     const lowCaseContestants = this.state.contestants.map(contestant => contestant.toLowerCase());
+    
     if (contestant && !lowCaseContestants.includes(contestant.toLowerCase())) {
-      const contestants = this.state.contestants.slice();
-      contestants.push(contestant);
+      const contestants = this.state.contestants.concat(contestant);
       this.setState({ contestants });
     }
   };
@@ -68,7 +68,8 @@ class App extends Component {
 
 export default App;
 
-/* Courtesy of the fisher-yates shuffle algorithm
+/* 
+ * Courtesy of the fisher-yates shuffle algorithm
  * https://www.frankmitchell.org/2015/01/fisher-yates/
  */
 export function shuffle(arr) {
